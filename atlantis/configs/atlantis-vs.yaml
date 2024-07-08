@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: atlantis-vs
+  namespace: atlantis
+spec:
+  gateways:
+    - atlantis-gateway
+  hosts:
+    - '*'
+  http:
+    - match:
+        - uri:
+            prefix: /
+      # rewrite:
+      #   uri: /
+      route:
+        - destination:
+            host: atlantis
+            port:
+              number: 80

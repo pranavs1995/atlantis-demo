@@ -1,0 +1,10 @@
+version: 3
+projects:
+  - dir: aws/dev
+    workflow: dev
+    autoplan:
+      when_modified: ["terraform/dev/**/*.tf"]
+  - dir: aws/stage
+    workflow: stage
+    autoplan:
+      when_modified: ["terraform/stage/**/*.tf"]
