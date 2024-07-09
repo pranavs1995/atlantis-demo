@@ -25,6 +25,8 @@ spec:
           ### GitHub Config ###
           - name: ATLANTIS_GH_USER
             value: pranavs1995
+          - name: ATLANTIS_REPO_CONFIG
+            value: "/etc/atlantis/repos.yaml"
           - name: ATLANTIS_GH_TOKEN
             valueFrom:
               secretKeyRef:
