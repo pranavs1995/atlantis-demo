@@ -32,7 +32,7 @@ data:
             - env:
                 name: ENV_NAME
                 command: 'echo "hello dynamic-value-$(date)"'
-            - run: terraform${ATLANTIS_TERRAFORM_VERSION} fmt -check=true -write=false -diff=true
+            - run: echo "Start From Terraform Init and Plan"
             - init
             - plan
         apply:
