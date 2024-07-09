@@ -18,6 +18,7 @@ projects:
 - name: project-dev
   dir: terraform/dev
   terraform_version: 1.2.9
+  workflow: default
   autoplan:
     when_modified:
     - '**/*.tf'
@@ -25,6 +26,7 @@ projects:
 - name: project-stage
   dir: terraform/stage
   terraform_version: 1.2.9
+  workflow: default
   autoplan:
     when_modified:
     - '**/*.tf'
