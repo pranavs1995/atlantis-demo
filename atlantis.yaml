@@ -43,7 +43,7 @@ workflows:
             export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
         - env:
             name: TEMP_CREDS
-            value: aws sts assume-role --role-arn arn:aws:iam::838747702413:role/atlantis_dev --role-session-name AtlantisSession
+            command: aws sts assume-role --role-arn arn:aws:iam::838747702413:role/atlantis_dev --role-session-name AtlantisSession
         - run: echo $TEMP_CREDS
         - init
         - plan
