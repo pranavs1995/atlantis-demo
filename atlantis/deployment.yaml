@@ -18,7 +18,7 @@ spec:
       containers:
         - name: atlantis
           # image: ghcr.io/runatlantis/atlantis:v0.28.3
-          image: pranavs1995/atlantis-aws:v0.28.3
+          image: pranavs1995/atlantis-aws:2-d7ecce1
           env:
           - name: ATLANTIS_REPO_ALLOWLIST
             value: github.com/pranavs1995/atlantis-demo
