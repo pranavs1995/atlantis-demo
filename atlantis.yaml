@@ -30,11 +30,3 @@ projects:
   autoplan:
     when_modified:
     - '**/*.tf'
-
-workflows:
-  override_workflow:
-    plan:
-      steps:
-      - run: echo "Start From Terraform Init and Plan"
-      - init
-      - plan
