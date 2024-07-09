@@ -5,25 +5,36 @@ metadata:
 data:
   repos.yaml: |
     repos:
-      - id: /.*/
-        workflows:
-          dev:
-            plan:
-              steps:
-                - run: |
-                    temp_role=$(aws sts assume-role --role-arn arn:aws:iam::DEV_ACCOUNT_ID:role/AtlantisRole --role-session-name AtlantisSession)
-                    export AWS_ACCESS_KEY_ID=$(echo $temp_role | jq -r .Credentials.AccessKeyId)
-                    export AWS_SECRET_ACCESS_KEY=$(echo $temp_role | jq -r .Credentials.SecretAccessKey)
-                    export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
-                    terraform init
-                    terraform plan
-          stage:
-            plan:
-              steps:
-                - run: |
-                    temp_role=$(aws sts assume-role --role-arn arn:aws:iam::STAGE_ACCOUNT_ID:role/AtlantisRole --role-session-name AtlantisSession)
-                    export AWS_ACCESS_KEY_ID=$(echo $temp_role | jq -r .Credentials.AccessKeyId)
-                    export AWS_SECRET_ACCESS_KEY=$(echo $temp_role | jq -r .Credentials.SecretAccessKey)
-                    export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
-                    terraform init
-                    terraform plan
+    - id: /.*/
+      branch: /(master|main)/
+      apply_requirements: [approved, mergeable]
+      allowed_overrides: [apply_requirements, workflow, delete_source_branch_on_merge]
+      delete_source_branch_on_merge: true
+      workflow: default
+    - id: github.com/pranavs1995/atlantis-demo
+      apply_requirements: [approved, mergeable]
+      allowed_overrides: [apply_requirements, workflow, delete_source_branch_on_merge]
+      delete_source_branch_on_merge: true
+      allow_custom_workflows: true
+      workflow: my-demo
+    workflows:
+      default:
+        plan:
+          steps:
+            - init
+            - plan
+        apply:
+          steps:
+            - apply
+      my-demo:
+        plan:
+          steps:
+            - env:
+                name: ENV_NAME
+                command: 'echo "hello dynamic-value-$(date)"'
+            - run: terraform${ATLANTIS_TERRAFORM_VERSION} fmt -check=true -write=false -diff=true
+            - init
+            - plan
+        apply:
+          steps:
+            - apply

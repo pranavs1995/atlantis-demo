@@ -17,11 +17,11 @@ spec:
       serviceAccountName: atlantis-sa
       containers:
         - name: atlantis
-          image: ghcr.io/runatlantis/atlantis:v0.28.3
+          # image: ghcr.io/runatlantis/atlantis:v0.28.3
+          image: pranavs1995/atlantis-aws:v0.28.3
           env:
           - name: ATLANTIS_REPO_ALLOWLIST
             value: github.com/pranavs1995/atlantis-demo
-
           ### GitHub Config ###
           - name: ATLANTIS_GH_USER
             value: pranavs1995
@@ -42,11 +42,11 @@ spec:
             containerPort: 4141
           resources:
             requests:
-              memory: 256Mi
-              cpu: 100m
+              memory: 1024Mi
+              cpu: 300m
             limits:
-              memory: 256Mi
-              cpu: 100m
+              memory: 1024Mi
+              cpu: 300m
           livenessProbe:
             periodSeconds: 60
             httpGet:
