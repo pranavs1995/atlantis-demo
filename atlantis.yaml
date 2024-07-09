@@ -18,7 +18,6 @@ projects:
 - name: project-quick-demo
   dir: terraform/dev
   terraform_version: 1.2.9
-  workflow: override_workflow
   autoplan:
     when_modified:
     - '**/*.tf'
@@ -26,7 +25,6 @@ projects:
 - name: project-module-demo
   dir: terraform/stage
   terraform_version: 1.2.9
-  workflow: override_workflow
   autoplan:
     when_modified:
     - '**/*.tf'
