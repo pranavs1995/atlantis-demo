@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: awscli
+  namespace: atlantis
+spec:
+  containers:
+  - image: amazon/aws-cli:latest
+    name: awscli
+    command:
+      - "sleep"
+      - "604800"
+  serviceAccountName: atlantis-sa
+  restartPolicy: Never

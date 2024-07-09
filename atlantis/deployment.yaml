@@ -17,7 +17,8 @@ spec:
       serviceAccountName: atlantis-sa
       containers:
         - name: atlantis
-          image: ghcr.io/runatlantis/atlantis:v0.28.3
+          # image: ghcr.io/runatlantis/atlantis:v0.28.3
+          image: pranavs1995/atlantis-aws:v0.28.3
           env:
           - name: ATLANTIS_REPO_ALLOWLIST
             value: github.com/pranavs1995/atlantis-demo
