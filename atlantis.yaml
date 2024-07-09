@@ -1,7 +1,9 @@
 ---
 version: 3
-automerge: true
+automerge: false
 delete_source_branch_on_merge: true
+parallel_plan: true
+parallel_apply: true
 
 projects:
 - name: project-dev
