@@ -14,5 +14,16 @@ data:
           - run: echo "do nothing"
         post_workflow_hooks:
           - run: echo "did nothing"
-
-
+---
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: aws-config
+# data:
+#   config: |
+# [profile dev]
+# role_arn = arn:aws:iam::838747702413:role/atlantis_dev
+# source_profile = 
+# [profile stage]
+# role_arn = arn:aws:iam::838747702413:role/atlantis_stage
+# source_profile = 
