@@ -35,12 +35,6 @@ workflows:
   default:
     plan:
       steps:
-        - run: echo hi
-        - run: |
-            temp_role=$(aws sts assume-role --role-arn arn:aws:iam::838747702413:role/atlantis_dev --role-session-name AtlantisSession)
-            export AWS_ACCESS_KEY_ID=$(echo $temp_role | jq -r .Credentials.AccessKeyId)
-            export AWS_SECRET_ACCESS_KEY=$(echo $temp_role | jq -r .Credentials.SecretAccessKey)
-            export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
         - env:
             name: TEMP_CREDS
             command: aws sts assume-role --role-arn arn:aws:iam::838747702413:role/atlantis_dev --role-session-name AtlantisSession
@@ -53,9 +47,6 @@ workflows:
         - env:
             name: AWS_SESSION_TOKEN
             command: echo $TEMP_CREDS | jq -r .Credentials.SessionToken
-        - run: echo $AWS_ACCESS_KEY_ID
-        - run: echo $AWS_SECRET_ACCESS_KEY
-        - run: echo $AWS_SESSION_TOKEN
         - init
         - plan
     apply:
