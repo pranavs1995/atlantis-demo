@@ -20,24 +20,22 @@ projects:
     when_modified:
     - '**/*.tf'
 
-load-env: &load-env
-  - env:
-      name: TEMP_CREDS
-      command: aws sts assume-role --role-arn arn:aws:iam::838747702413:role/atlantis_dev --role-session-name AtlantisSession
-  - env:
-      name: AWS_ACCESS_KEY_ID
-      command: echo $TEMP_CREDS | jq -r .Credentials.AccessKeyId
-  - env:
-      name: AWS_SECRET_ACCESS_KEY
-      command: echo $TEMP_CREDS | jq -r .Credentials.SecretAccessKey
-  - env:
-      name: AWS_SESSION_TOKEN
-      command: echo $TEMP_CREDS | jq -r .Credentials.SessionToken
-
 workflows:
   dev:
     plan:
-      steps: *load-env
+      steps:
+        - env:
+            name: TEMP_CREDS
+            command: aws sts assume-role --role-arn arn:aws:iam::838747702413:role/atlantis_dev --role-session-name AtlantisSession
+        - env:
+            name: AWS_ACCESS_KEY_ID
+            command: echo $TEMP_CREDS | jq -r .Credentials.AccessKeyId
+        - env:
+            name: AWS_SECRET_ACCESS_KEY
+            command: echo $TEMP_CREDS | jq -r .Credentials.SecretAccessKey
+        - env:
+            name: AWS_SESSION_TOKEN
+            command: echo $TEMP_CREDS | jq -r .Credentials.SessionToken
         - init
         - plan
     apply:
