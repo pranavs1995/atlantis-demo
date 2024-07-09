@@ -21,6 +21,7 @@ data:
       default:
         plan:
           steps:
+            - run: echo "Start From Terraform Init and Plan"
             - init
             - plan
         apply:
