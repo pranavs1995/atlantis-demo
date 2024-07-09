@@ -3,7 +3,7 @@ automerge: true
 delete_source_branch_on_merge: true
 
 # Define common workflow steps
-common-workflow-steps: &common-workflow-steps
+&common-workflow-steps
   - env:
       name: AWS_ACCESS_KEY_ID
       command: echo $TEMP_CREDS | jq -r .Credentials.AccessKeyId
