@@ -37,10 +37,12 @@ spec:
               secretKeyRef:
                 name: atlantis-vcs
                 key: webhook-secret
+          - name: ATLANTIS_ATLANTIS_URL
+            value: http://k8s-atlantis-atlantis-de2e50b9e5-213644986.us-east-1.elb.amazonaws.com
           - name: ATLANTIS_PORT
             value: "4141"
           - name: ATLANTIS_LOG_LEVEL
-            value: "debug"
+            value: "info"
           ports:
           - name: atlantis
             containerPort: 4141
