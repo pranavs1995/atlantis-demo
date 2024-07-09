@@ -4,14 +4,14 @@ metadata:
   name: atlantis-repo-config
 data:
   repos.yaml: |
-    repos:
+      repos:
       - id: /.*/
         plan_requirements: [mergeable]
         apply_requirements: [approved]
-        allowed_overrides:
-          - workflow
-        allow_custom_workflows: true
+        allowed_overrides: [workflow]
         pre_workflow_hooks:
           - run: echo "do nothing"
+        post_workflow_hooks:
+          - run: echo "did nothing"
 
 

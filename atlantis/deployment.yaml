@@ -37,6 +37,8 @@ spec:
                 key: webhook-secret
           - name: ATLANTIS_PORT
             value: "4141"
+          - name: ATLANTIS_LOG_LEVEL
+            value: "debug"
           ports:
           - name: atlantis
             containerPort: 4141
