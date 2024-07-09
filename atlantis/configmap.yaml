@@ -12,17 +12,21 @@ data:
       delete_source_branch_on_merge: true
       allow_custom_workflows: true
       workflow: default
+      pre_workflow_hooks:
+        - run: echo "hello from pre workflow hook in default"
     - id: github.com/pranavs1995/atlantis-demo
       apply_requirements: [approved, mergeable]
       allowed_overrides: [apply_requirements, workflow, delete_source_branch_on_merge]
       delete_source_branch_on_merge: true
       allow_custom_workflows: true
       workflow: my-demo
+      pre_workflow_hooks:
+        - run: echo "hello from pre workflow hook in custom"
     workflows:
       default:
         plan:
           steps:
-            - run: echo "Start From Terraform Init and Plan"
+            - run: echo hi
             - init
             - plan
         apply:
