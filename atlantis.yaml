@@ -1,5 +1,7 @@
 ---
 version: 3
+autodiscover:
+  mode: auto
 automerge: true
 delete_source_branch_on_merge: true
 
