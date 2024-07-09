@@ -6,7 +6,7 @@ data:
   repos.yaml: |
       repos:
       - id: /.*/
-        plan_requirements: [mergeable]
+        plan_requirements: [approved]
         apply_requirements: [approved]
         allowed_overrides: [workflow]
         pre_workflow_hooks:
