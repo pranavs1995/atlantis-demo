@@ -7,6 +7,7 @@ provider "aws" {
 resource "aws_instance" "example" {
   ami           = "ami-09b90e09742640522"
   instance_type = "t2.micro"
+
   tags = {
     Name = "demo_instance_dev"
     managed_by = "atlantis"
