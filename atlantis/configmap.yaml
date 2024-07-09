@@ -9,6 +9,7 @@ data:
         plan_requirements: [approved]
         apply_requirements: [approved]
         allowed_overrides: [workflow]
+        allow_custom_workflows: true
         pre_workflow_hooks:
           - run: echo "do nothing"
         post_workflow_hooks:
