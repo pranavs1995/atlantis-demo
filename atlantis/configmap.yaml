@@ -31,7 +31,7 @@ data:
           steps:
             - env:
                 name: ENV_NAME
-                command: 'echo "dynamic-value-$(date)"'
+                command: 'echo "hello dynamic-value-$(date)"'
             - run: terraform${ATLANTIS_TERRAFORM_VERSION} fmt -check=true -write=false -diff=true
             - init
             - plan
