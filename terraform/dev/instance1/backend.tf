@@ -2,7 +2,7 @@
 terraform {
   backend "s3" {
     bucket = "tf-state-aiops-dev"
-    key = "atlantis-demo/dev/terraform.tfstate"
+    key = "atlantis-demo/dev/instance1/terraform.tfstate"
     region = "us-west-2"
  }
 }
