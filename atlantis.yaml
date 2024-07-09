@@ -1,15 +1,3 @@
-# version: 3
-# projects:
-#   - dir: aws/dev
-#     workflow: dev
-#     autoplan:
-#       when_modified: ["terraform/dev/**/*.tf"]
-#   - dir: aws/stage
-#     workflow: stage
-#     autoplan:
-#       when_modified: ["terraform/stage/**/*.tf"]
-
----
 version: 3
 automerge: true
 delete_source_branch_on_merge: true
@@ -18,7 +6,7 @@ projects:
 - name: project-dev
   dir: terraform/dev
   terraform_version: 1.2.9
-  workflow: default
+  workflow: dev
   autoplan:
     when_modified:
     - '**/*.tf'
@@ -26,29 +14,47 @@ projects:
 - name: project-stage
   dir: terraform/stage
   terraform_version: 1.2.9
-  workflow: default
+  workflow: stage
   autoplan:
     when_modified:
     - '**/*.tf'
 
+x-workflow-steps: &workflow-steps
+  plan:
+    steps:
+      - env:
+          name: TEMP_CREDS
+          command: aws sts assume-role --role-arn ${ROLE_ARN} --role-session-name AtlantisSession
+      - env:
+          name: AWS_ACCESS_KEY_ID
+          command: echo $TEMP_CREDS | jq -r .Credentials.AccessKeyId
+      - env:
+          name: AWS_SECRET_ACCESS_KEY
+          command: echo $TEMP_CREDS | jq -r .Credentials.SecretAccessKey
+      - env:
+          name: AWS_SESSION_TOKEN
+          command: echo $TEMP_CREDS | jq -r .Credentials.SessionToken
+      - init
+      - plan
+  apply:
+    steps:
+      - apply
+
 workflows:
-  default:
+  dev:
+    <<: *workflow-steps
     plan:
       steps:
         - env:
-            name: TEMP_CREDS
-            command: aws sts assume-role --role-arn arn:aws:iam::838747702413:role/atlantis_dev --role-session-name AtlantisSession
-        - env:
-            name: AWS_ACCESS_KEY_ID
-            command: echo $TEMP_CREDS | jq -r .Credentials.AccessKeyId
-        - env:
-            name: AWS_SECRET_ACCESS_KEY
-            command: echo $TEMP_CREDS | jq -r .Credentials.SecretAccessKey
-        - env:
-            name: AWS_SESSION_TOKEN
-            command: echo $TEMP_CREDS | jq -r .Credentials.SessionToken
-        - init
-        - plan
-    apply:
+            name: ROLE_ARN
+            command: echo "arn:aws:iam::838747702413:role/atlantis_dev"
+        - <<: *workflow-steps.plan.steps
+
+  stage:
+    <<: *workflow-steps
+    plan:
       steps:
-        - apply
+        - env:
+            name: ROLE_ARN
+            command: echo "arn:aws:iam::838747702413:role/atlantis_stage"
+        - <<: *workflow-steps.plan.steps
