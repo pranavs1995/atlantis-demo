@@ -38,6 +38,7 @@ workflows:
             command: echo $TEMP_CREDS | jq -r .Credentials.SessionToken
         - init
         - plan
+        - apply
     apply:
       steps:
         - apply
