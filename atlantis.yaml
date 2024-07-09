@@ -39,7 +39,7 @@ workflows:
   dev:
     plan:
       steps:
-        <<: *load-aws-env
+        - <<: *load-aws-env
         - init
         - plan
     apply:
