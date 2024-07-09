@@ -10,7 +10,6 @@ resource "aws_instance" "example" {
   instance_type = "t2.micro"
   tags = {
     Name = "demo_instance_stage"
-
     managed_by = "atlantis"
   }
 }
