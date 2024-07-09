@@ -18,13 +18,15 @@ spec:
       containers:
         - name: atlantis
           # image: ghcr.io/runatlantis/atlantis:v0.28.3
-          image: pranavs1995/atlantis-aws:2-d7ecce1
+          image: pranavs1995/atlantis-aws:5-71a2a39
           env:
           - name: ATLANTIS_REPO_ALLOWLIST
             value: github.com/pranavs1995/atlantis-demo
           ### GitHub Config ###
           - name: ATLANTIS_GH_USER
             value: pranavs1995
+          - name: ATLANTIS_REPO_CONFIG
+            value: "/etc/atlantis/repos.yaml"
           - name: ATLANTIS_GH_TOKEN
             valueFrom:
               secretKeyRef:
@@ -37,6 +39,8 @@ spec:
                 key: webhook-secret
           - name: ATLANTIS_PORT
             value: "4141"
+          - name: ATLANTIS_LOG_LEVEL
+            value: "debug"
           ports:
           - name: atlantis
             containerPort: 4141
