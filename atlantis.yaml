@@ -6,8 +6,16 @@ automerge: true
 delete_source_branch_on_merge: true
 
 projects:
-- name: project-dev
-  dir: terraform/dev/*
+- name: dev-instance1
+  dir: terraform/dev/instance1
+  terraform_version: 1.2.9
+  workflow: dev
+  autoplan:
+    when_modified:
+    - '**/*.tf'
+
+- name: dev-instance2
+  dir: terraform/dev/instance2
   terraform_version: 1.2.9
   workflow: dev
   autoplan:
